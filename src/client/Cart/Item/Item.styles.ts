@@ -25,3 +25,20 @@ export const Wrapper = styled.div`
     height: 100%;
   }
 `;
+
+export const ItemInfo = styled.div`
+  font-family: Arial, Helvetica, sans-serif;
+  .item-id {
+    color: #808080;
+  }
+
+  table, td, tr {
+    border: 1pt solid black;
+    vertical-align: top;
+  }
+  
+  td:first-child {
+    font-weight: bold;
+  }
+
+`;
