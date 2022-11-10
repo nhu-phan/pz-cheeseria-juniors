@@ -12,6 +12,8 @@ import Badge from '@material-ui/core/Badge';
 // Styles
 import { Wrapper, StyledButton, StyledAppBar, HeaderTypography } from './App.styles';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { getCheeses } from './services/purchase.service';
+
 // Types
 export type CartItemType = {
   id: number;
@@ -22,10 +24,6 @@ export type CartItemType = {
   title: string;
   amount: number;
 };
-
-
-const getCheeses = async (): Promise<CartItemType[]> =>
-  await (await fetch(`api/cheeses`)).json();
 
 const App = () => {
   const [cartOpen, setCartOpen] = useState(false);
@@ -116,6 +114,7 @@ const App = () => {
           cartItems={cartItems}
           addToCart={handleAddToCart}
           removeFromCart={handleRemoveFromCart}
+          setCartItems={setCartItems}
         />
       </Drawer>
 
