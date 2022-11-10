@@ -23,8 +23,7 @@ export const handlePurchaseCheese = (
     try {
         const purchasedItems = request.body;
         const result = saveOrder(purchasedItems);
-        //response.json(result);
-        response.status(201).json({message: "Successfully purchased"});
+        response.status(201).json(result);
     } catch (error) {
         response.status(500).json({ error });
     }

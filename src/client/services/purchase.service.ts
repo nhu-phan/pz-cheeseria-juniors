@@ -1,4 +1,12 @@
 import { CartItemType } from "../App";
+
+/**
+ * Get all the cheeses from database
+ * @returns all the cheeses from database
+ */
+export const getCheeses = async (): Promise<CartItemType[]> =>
+    await (await fetch(`api/cheeses`)).json();
+
 /**
  * Send order details to API
  * @param orderItems items currently in the cart
@@ -14,7 +22,7 @@ export const handleCheesePurchase = async (
             quantity: item.amount,
         };
     });
-    
+
     return fetch(`api/cheeses/purchase`, {
         method: "POST",
         headers: {
@@ -24,12 +32,16 @@ export const handleCheesePurchase = async (
             "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
         },
         body: JSON.stringify(orders),
-    }).then((res) => {
-        if (res.status === 201) {
-            setCartItems([] as CartItemType[]);
-            alert("Purchase successful");
-        } else {
+    })
+        .then((res) => {
+            if (res.status === 201) {
+                setCartItems([] as CartItemType[]);
+                alert("Purchase successful!");
+            } else {
+                alert("Something went wrong!");
+            }
+        })
+        .catch((e) => {
             alert("Something went wrong!");
-        };
-    });
+        });
 };
