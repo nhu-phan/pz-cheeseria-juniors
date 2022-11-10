@@ -1,10 +1,11 @@
-export interface PurchaseHistory {
-    id: string;
+export interface Order {
+    id: number;
     totalPrice: number;
-    orders: Order[];
+    orderItems: OrderItem[];
 }
 
-export interface Order {
+export interface OrderItem {
     cheeseId: number;
     quantity: number;
+    totalPrice?: number;
 }

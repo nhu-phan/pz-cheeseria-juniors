@@ -1,5 +1,5 @@
 import { Cheese } from "./models/cheese.model";
-import { PurchaseHistory } from "./models/purchaseHistory.model";
+import { Order } from "./models/purchaseHistory.model";
 
 const purchasesData = require("./purchases.json");
 const cheesesData = require("./cheeses.json");
@@ -10,7 +10,7 @@ const fs = require("fs");
  */
 class MockDatabase {
     private cheeses: Cheese[];
-    private purchaseHistory: PurchaseHistory[];
+    private orders: Order[];
 
     constructor() {
         this.refreshDatabase();
@@ -20,19 +20,19 @@ class MockDatabase {
         return this.cheeses;
     }
 
-    public get PurchaseHistory(): PurchaseHistory[] {
-        return this.purchaseHistory;
+    public get Orders(): Order[] {
+        return this.orders;
     }
 
     public refreshDatabase = () => {
         this.cheeses = [...cheesesData] as [];
-        this.purchaseHistory = [...purchasesData] as [];
+        this.orders = [...purchasesData] as [];
     };
 
     public saveData = () => {
         fs.writeFileSync(
             "./src/server/data/purchases.json",
-            JSON.stringify(this.purchaseHistory)
+            JSON.stringify(this.orders)
         );
     };
 }
