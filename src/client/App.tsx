@@ -116,6 +116,7 @@ const App = () => {
           cartItems={cartItems}
           addToCart={handleAddToCart}
           removeFromCart={handleRemoveFromCart}
+          setCartItems={setCartItems}
         />
       </Drawer>
 
