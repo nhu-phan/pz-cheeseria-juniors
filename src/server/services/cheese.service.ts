@@ -12,9 +12,10 @@ export const getCheeseById = (cheeseId: number): Cheese | undefined => {
 
 export const saveOrder = (orderItems: OrderItem[]): Order => {
     orderItems = orderItems.map((item) => {
-        const cheese = getCheeseById(item.cheeseId);
+        const cheese = getCheeseById(item.cheese.id)!;
         return {
-            ...item,
+            cheese,
+            quantity: item.quantity,
             totalPrice: (cheese?.price || 0) * item.quantity,
         };
     });
@@ -31,4 +32,8 @@ export const saveOrder = (orderItems: OrderItem[]): Order => {
     mockDatabase.Orders.push(order);
     mockDatabase.saveData();
     return order;
+};
+
+export const getOrderHistory = () => {
+    return mockDatabase.Orders;
 };

@@ -1,3 +1,4 @@
+import { Cheese } from './cheese.model';
 export interface Order {
     id: number;
     totalPrice: number;
@@ -5,7 +6,7 @@ export interface Order {
 }
 
 export interface OrderItem {
-    cheeseId: number;
+    cheese: Cheese;
     quantity: number;
     totalPrice?: number;
 }
