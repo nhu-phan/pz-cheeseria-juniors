@@ -1,7 +1,6 @@
-import { saveOrder } from "./../services/cheese.service";
+import { getOrderHistory, saveOrder } from "./../services/cheese.service";
 import { NextFunction, Request, Response } from "express";
 import { getAllCheeses } from "../services/cheese.service";
-import mockDatabase from "../data/mock-database";
 
 // Return all cheeses from json file as response
 export const handleGetAllCheeses = async (
@@ -41,7 +40,8 @@ export const handleGetRecentPurchases = async (
 ) => {
     try {
         // Sends array of all recent orders as response
-        response.status(200).json(mockDatabase.Orders);
+        const orderHistory = getOrderHistory();
+        response.status(200).json(orderHistory);
     } catch (error) {
         // Internal error
         response.status(500).json({ error });

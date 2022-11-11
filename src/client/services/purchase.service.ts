@@ -18,7 +18,7 @@ export const handleCheesePurchase = async (
 ) => {
     const orders = orderItems.map((item: CartItemType) => {
         return {
-            cheeseId: item.id,
+            cheese: {id: item.id},
             quantity: item.amount,
         };
     });
