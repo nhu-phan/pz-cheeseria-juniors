@@ -18,7 +18,7 @@ export const handleCheesePurchase = async (
 ) => {
     const orders = orderItems.map((item: CartItemType) => {
         return {
-            cheese: {id: item.id},
+            cheese: { id: item.id },
             quantity: item.amount,
         };
     });
@@ -44,4 +44,11 @@ export const handleCheesePurchase = async (
         .catch((e) => {
             alert("Something went wrong!");
         });
+};
+
+/**
+ * Get all recent purchases from API
+ */
+export const getRecentPurchases = async () => {
+    return fetch(`api/cheeses/purchase`).then(res => res.json());
 };

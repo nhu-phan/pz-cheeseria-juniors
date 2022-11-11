@@ -13,6 +13,7 @@ import Badge from '@material-ui/core/Badge';
 import { Wrapper, StyledButton, StyledAppBar, HeaderTypography } from './App.styles';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import { getCheeses } from './services/purchase.service';
+import PurchaseHistory from './PurchaseHistory/PurchaseHistory';
 
 // Types
 export type CartItemType = {
@@ -27,6 +28,7 @@ export type CartItemType = {
 
 const App = () => {
   const [cartOpen, setCartOpen] = useState(false);
+  const [recentPurchaseOpen, setRecentPurchaseOpen] = useState(false);
   const [cartItems, setCartItems] = useState([] as CartItemType[]);
   const { data, isLoading, error } = useQuery<CartItemType[]>(
     'cheeses',
@@ -81,12 +83,16 @@ const App = () => {
             justify="space-between"
             alignItems="center"
           >
-            <StyledButton>
+            <StyledButton onClick={() => setRecentPurchaseOpen(true)}>
               <RestoreIcon />
               <Typography variant="subtitle2">
                 Recent Purchases
               </Typography>
             </StyledButton>
+
+            <Drawer anchor='left' open={recentPurchaseOpen} onClose={() => setRecentPurchaseOpen(false)}>
+              <PurchaseHistory/>
+            </Drawer>
 
             <HeaderTypography variant="h3" noWrap>
               Welcome to Patient Zero's Cheeseria
