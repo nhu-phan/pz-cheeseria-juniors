@@ -1,7 +1,7 @@
 import { Order, OrderItem } from "./../data/models/purchaseHistory.model";
 import { Cheese } from "./../data/models/cheese.model";
 import mockDatabase from "../data/mock-database";
-const _ = require("lodash");
+import * as _ from "lodash";
 
 export const getAllCheeses = (): Cheese[] => {
     return mockDatabase.Cheeses;
