@@ -1,4 +1,8 @@
-import { getOrderHistory, saveOrder } from "./../services/cheese.service";
+import {
+    getOrderHistory,
+    isValidOrder,
+    saveOrder,
+} from "./../services/cheese.service";
 import { NextFunction, Request, Response } from "express";
 import { getAllCheeses } from "../services/cheese.service";
 
@@ -12,7 +16,7 @@ export const handleGetAllCheeses = async (
         const cheeses = getAllCheeses();
         return response.json(cheeses);
     } catch (error) {
-        return response.status(500).json({ error });
+        return response.status(500).json({ message: error.message });
     }
 };
 
@@ -24,11 +28,15 @@ export const handlePurchaseCheese = (
 ) => {
     try {
         const purchasedItems = request.body;
+        if (!isValidOrder(purchasedItems)) {
+            response.status(400).json({ error: "Invalid Order" });
+        }
+
         const result = saveOrder(purchasedItems);
         response.status(201).json(result);
     } catch (error) {
         // Internal error
-        response.status(500).json({ error });
+        response.status(500).json({ message: error.message });
     }
 };
 
@@ -44,6 +52,6 @@ export const handleGetRecentPurchases = async (
         response.status(200).json(orderHistory);
     } catch (error) {
         // Internal error
-        response.status(500).json({ error });
+        response.status(500).json({ message: error.message });
     }
 };
