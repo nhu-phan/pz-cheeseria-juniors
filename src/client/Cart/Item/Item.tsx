@@ -28,19 +28,19 @@ const Item: React.FC<Props> = ({ item, handleAddToCart }) => {
 
     return (
         <Wrapper>
-            <section onClick={() => setShowDialogue(true)}>
-                <img src={item.image} alt={item.title} />
+            <Box onClick={() => setShowDialogue(true)}>
+                <img data-cy={`cheese-${item.id}-image`} src={item.image} alt={item.title} />
                 <Box className="item-details">
-                    <Typography className="cheese-name">
+                    <Typography className="cheese-name" data-cy={`cheese-${item.id}-title`}>
                         {item.title}
                     </Typography>
-                    <Typography>${item.price}</Typography>
+                    <Typography data-cy={`cheese-${item.id}-price`}>${item.price}</Typography>
                 </Box>
-            </section>
+            </Box>
 
             <Dialog open={showDialogue} onClick={() => setShowDialogue(false)}>
                 <ItemInfo>
-                    <DialogTitle>
+                    <DialogTitle data-cy={`dialog-cheese-${item.id}-title`}>
                         {item.title} <span className="item-id">#{item.id}</span>
                     </DialogTitle>
                     <DialogContent>
@@ -48,15 +48,15 @@ const Item: React.FC<Props> = ({ item, handleAddToCart }) => {
                             <Table aria-label="simple table">
                                 <TableRow>
                                     <TableCell>Price</TableCell>
-                                    <TableCell>${item.price}</TableCell>
+                                    <TableCell data-cy={`dialog-cheese-${item.id}-price`}>${item.price}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Description</TableCell>
-                                    <TableCell>{item.description}</TableCell>
+                                    <TableCell data-cy={`dialog-cheese-${item.id}-descr`}>{item.description}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>Category</TableCell>
-                                    <TableCell>{item.category}</TableCell>
+                                    <TableCell data-cy={`dialog-cheese-${item.id}-category`}>{item.category}</TableCell>
                                 </TableRow>
                             </Table>
                         </TableContainer>

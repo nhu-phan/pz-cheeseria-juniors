@@ -18,7 +18,7 @@ const PurchaseHistory = () => {
     if (recentPurchases.length === 0) {
         return <Wrapper>
             <Typography variant="h4">Your Recent Purchases</Typography>
-            <Typography variant="subtitle1">Oops, no recent purchases!</Typography>
+            <Typography data-cy="no-recent-purchase-msg" variant="subtitle1">Oops, no recent purchases!</Typography>
         </Wrapper>
     }
 
@@ -26,6 +26,7 @@ const PurchaseHistory = () => {
         <Typography variant="h4">Your Recent Purchases</Typography>
         {recentPurchases.map((order:OrderModel) => 
             <Order 
+                data-cy={`order-info-${order.id}`}
                 id={order.id}
                 totalPrice={order.totalPrice}
                 orderItems={order.orderItems}

@@ -17,11 +17,19 @@ import { Wrapper } from "./Order.styles";
 (title, unit price, quantity bought and total price) */
 const OrderItems = ({ cheese, quantity, totalPrice }: OrderItemModel) => {
     return (
-        <TableRow>
-            <TableCell>{cheese.title}</TableCell>
-            <TableCell>${cheese.price}</TableCell>
-            <TableCell>{quantity}</TableCell>
-            <TableCell>${totalPrice}</TableCell>
+        <TableRow data-cy={`order-cheese-${cheese.id}-row`}>
+            <TableCell data-cy={`order-cheese-${cheese.id}-title`}>
+                {cheese.title}
+            </TableCell>
+            <TableCell data-cy={`order-cheese-${cheese.id}-price`}>
+                ${cheese.price}
+            </TableCell>
+            <TableCell data-cy={`order-cheese-${cheese.id}-quantity`}>
+                {quantity}
+            </TableCell>
+            <TableCell data-cy={`order-cheese-${cheese.id}-totalPrice`}>
+                ${totalPrice}
+            </TableCell>
         </TableRow>
     );
 };
@@ -30,29 +38,45 @@ const OrderItems = ({ cheese, quantity, totalPrice }: OrderItemModel) => {
 const Order = ({ id, totalPrice, orderItems, date }: OrderModel) => {
     return (
         <Wrapper>
-            <Typography variant="h3" className="header">
+            <Typography
+                variant="h3"
+                className="header"
+                data-cy={`order-${id}-number`}
+            >
                 Order Number #{id}
             </Typography>
-            <Typography variant="subtitle1">
+            <Typography variant="subtitle1" data-cy={`order-${id}-price`}>
                 Total Order Price: ${totalPrice.toFixed(2)}
             </Typography>
-            <Typography variant="subtitle2">
-                Order Date: {(new Date(date)).toLocaleString()}
+            <Typography variant="subtitle2" data-cy={`order-${id}-date`}>
+                Order Date: {new Date(date).toLocaleString()}
             </Typography>
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
-                    <TableHead>
+                    <TableHead data-cy="order-table-header">
                         <TableRow>
-                            <TableCell className="table-header">
+                            <TableCell
+                                className="table-header"
+                                data-cy="order-table-header-name"
+                            >
                                 Cheese Name
                             </TableCell>
-                            <TableCell className="table-header">
+                            <TableCell
+                                className="table-header"
+                                data-cy="order-table-header-unitPrice"
+                            >
                                 Unit Price
                             </TableCell>
-                            <TableCell className="table-header">
+                            <TableCell
+                                className="table-header"
+                                data-cy="order-table-header-quantity"
+                            >
                                 Quantity
                             </TableCell>
-                            <TableCell className="table-header">
+                            <TableCell
+                                className="table-header"
+                                data-cy="order-table-header-totalPrice"
+                            >
                                 Total Price
                             </TableCell>
                         </TableRow>
@@ -63,6 +87,7 @@ const Order = ({ id, totalPrice, orderItems, date }: OrderModel) => {
                                 cheese={item.cheese}
                                 quantity={item.quantity}
                                 totalPrice={item.totalPrice}
+                                data-cy={`order-${id}-items`}
                             ></OrderItems>
                         ))}
                     </TableBody>

@@ -18,20 +18,21 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart, setCartIt
 
   return (
     <Wrapper>
-      <Typography variant="h4">Your Shopping Cart</Typography>
-      {cartItems.length === 0 ? <Typography variant="subtitle1">No items in cart</Typography> : null}
+      <Typography variant="h4" className="cart-header">Your Shopping Cart</Typography>
+      {cartItems.length === 0 ? <Typography data-cy="cart-empty-msg" variant="subtitle1">No items in cart</Typography> : null}
       {cartItems.map(item => (
         <CartItem
           key={item.id}
           item={item}
           addToCart={addToCart}
           removeFromCart={removeFromCart}
+          data-cy={`cart-item-${item.id}`}
         />
       ))}
       <br></br>
-      <Typography variant="h5">Total: ${calculateTotal(cartItems).toFixed(2)}</Typography>
+      <Typography variant="h5" data-cy="cart-totalPrice">Total: ${calculateTotal(cartItems).toFixed(2)}</Typography>
       <br></br>
-      {cartItems.length !== 0 && <Button variant="contained" color="primary" onClick={async() => await handleCheesePurchase(cartItems, setCartItems)}>Purchase</Button>}
+      {cartItems.length !== 0 && <Button data-cy="purchase-btn" variant="contained" color="primary" onClick={async() => await handleCheesePurchase(cartItems, setCartItems)}>Purchase</Button>}
     </Wrapper>
   );
 };
