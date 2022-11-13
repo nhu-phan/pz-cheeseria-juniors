@@ -17,6 +17,10 @@ export const Wrapper = styled.div`
     justify-content: space-between;
   }
 
+  .cart-cheese {
+    font-weight: bold;
+  }
+
   img {
     max-width: 80px;
     object-fit: cover;
