@@ -11,7 +11,7 @@ export const getCheeseById = (cheeseId: number): Cheese | undefined => {
     return mockDatabase.Cheeses.find((i) => i.id === cheeseId);
 };
 
-export const saveOrder = (orderItems: OrderItem[]): Order => {
+export const getItemTotalPrices = (orderItems: OrderItem[]): OrderItem[] => {
     orderItems = orderItems.map((item) => {
         const cheese = getCheeseById(item.cheese.id)!;
         return {
@@ -20,6 +20,12 @@ export const saveOrder = (orderItems: OrderItem[]): Order => {
             totalPrice: (cheese?.price || 0) * item.quantity,
         };
     });
+    return orderItems;
+};
+// Return order with totalPrice (for entire order), totalPrice (for a cheese type),
+// order date.
+export const getOrderWithTotalPrices = (orderItems: OrderItem[]): Order => {
+    orderItems = getItemTotalPrices(orderItems);
     const orderPrice = orderItems.reduce((accumulator, orderItem) => {
         return accumulator + (orderItem.totalPrice || 0);
     }, 0);
@@ -30,21 +36,7 @@ export const saveOrder = (orderItems: OrderItem[]): Order => {
         orderItems,
         date: new Date().toUTCString(),
     };
-
-    mockDatabase.Orders.push(order);
-    mockDatabase.saveData();
     return order;
-};
-
-// Get order history, sorted by latest
-export const getOrderHistory = () => {
-    const orderHistory = mockDatabase.Orders;
-    const sortedOrderHistory = _.orderBy(
-        orderHistory,
-        (o: Order) => new Date(o.date),
-        ["desc"]
-    );
-    return sortedOrderHistory;
 };
 
 // Checks if order is valid
@@ -62,4 +54,26 @@ export const isValidOrder = (orderItems: OrderItem[]): boolean => {
 
     // valid
     return true;
+};
+
+export const saveOrder = (orderItems: OrderItem[]): [{message: string}?, Order?] => {
+    const order: Order = getOrderWithTotalPrices(orderItems);
+    if (!isValidOrder(orderItems)) {
+        return [{ message: "Invalid Order" }];
+    } 
+    // Valid order, so add to mock database
+    mockDatabase.Orders.push(order);
+    mockDatabase.saveData();
+    return [undefined, order];
+};
+
+// Get order history, sorted by latest
+export const getOrderHistory = () => {
+    const orderHistory = mockDatabase.Orders;
+    const sortedOrderHistory = _.orderBy(
+        orderHistory,
+        (o: Order) => new Date(o.date),
+        ["desc"]
+    );
+    return sortedOrderHistory;
 };
