@@ -124,7 +124,10 @@ const App = () => {
                             Welcome to Patient Zero's Cheeseria
                         </HeaderTypography>
 
-                        <StyledButton onClick={() => setCartOpen(true)}>
+                        <StyledButton
+                            data-cy="cartBtn"
+                            onClick={() => setCartOpen(true)}
+                        >
                             <Badge
                                 badgeContent={getTotalItems(cartItems)}
                                 color="error"
@@ -150,6 +153,7 @@ const App = () => {
                     addToCart={handleAddToCart}
                     removeFromCart={handleRemoveFromCart}
                     setCartItems={setCartItems}
+                    onClose={() => setCartOpen(false)}
                 />
             </Drawer>
 

@@ -23,7 +23,7 @@ const PurchaseHistory = () => {
     }
 
     return (<Wrapper>
-        <Typography variant="h4">Your Recent Purchases</Typography>
+        <Typography data-cy="recent-purchases"variant="h4">Your Recent Purchases</Typography>
         {recentPurchases.map((order:OrderModel) => 
             <Order 
                 data-cy={`order-info-${order.id}`}
