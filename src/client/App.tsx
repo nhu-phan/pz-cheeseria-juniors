@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 // Components
 import Item from './Cart/Item/Item';
@@ -11,7 +11,7 @@ import RestoreIcon from '@material-ui/icons/Restore';
 import Badge from '@material-ui/core/Badge';
 // Styles
 import { Wrapper, StyledButton, StyledAppBar, HeaderTypography } from './App.styles';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { Toolbar, Typography } from '@material-ui/core';
 import { getCheeses } from './services/purchase.service';
 import PurchaseHistory from './PurchaseHistory/PurchaseHistory';
 
@@ -34,7 +34,19 @@ const App = () => {
     'cheeses',
     getCheeses
   );
-  console.log(data);
+
+  // Loads cart from local storage
+  useEffect(() => {
+    const savedCart = localStorage.getItem("cart");
+    const localStorageCart = (savedCart == null) ? [] : JSON.parse(savedCart);
+    setCartItems(localStorageCart);
+  },[])
+
+  // Saves to local storage whenever cart items change
+  useEffect(() => {
+    console.log("cart items changed");
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const getTotalItems = (items: CartItemType[]) =>
     items.reduce((ack: number, item) => ack + item.amount, 0);
@@ -80,7 +92,7 @@ const App = () => {
           <Grid
             container
             direction="row"
-            justify="space-between"
+            justifyContent="space-between"
             alignItems="center"
           >
             <StyledButton onClick={() => setRecentPurchaseOpen(true)}>

@@ -1,7 +1,9 @@
+import React from "react";
 import CartItem from './CartItem/CartItem';
 import { Wrapper } from './Cart.styles';
 import { CartItemType } from '../App';
 import { handleCheesePurchase } from '../services/purchase.service';
+import { Button, Typography } from '@material-ui/core';
 
 type Props = {
   cartItems: CartItemType[];
@@ -16,8 +18,8 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart, setCartIt
 
   return (
     <Wrapper>
-      <h2>Your Shopping Cart</h2>
-      {cartItems.length === 0 ? <p>No items in cart.</p> : null}
+      <Typography variant="h4">Your Shopping Cart</Typography>
+      {cartItems.length === 0 ? <Typography variant="subtitle1">No items in cart</Typography> : null}
       {cartItems.map(item => (
         <CartItem
           key={item.id}
@@ -26,8 +28,10 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart, setCartIt
           removeFromCart={removeFromCart}
         />
       ))}
-      <h2>Total: ${calculateTotal(cartItems).toFixed(2)}</h2>
-      <button onClick={async() => await handleCheesePurchase(cartItems, setCartItems)}>Purchase</button>
+      <br></br>
+      <Typography variant="h5">Total: ${calculateTotal(cartItems).toFixed(2)}</Typography>
+      <br></br>
+      {cartItems.length !== 0 && <Button variant="contained" color="primary" onClick={async() => await handleCheesePurchase(cartItems, setCartItems)}>Purchase</Button>}
     </Wrapper>
   );
 };
