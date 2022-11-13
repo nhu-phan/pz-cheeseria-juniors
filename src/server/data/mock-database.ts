@@ -1,9 +1,7 @@
 import { Cheese } from "./models/cheese.model";
 import { Order } from "./models/purchaseHistory.model";
 import * as fs from "fs";
-
-const purchasesData = require("./purchases.json");
-const cheesesData = require("./cheeses.json");
+import * as path from "path";
 
 /**
  * A mock-up database to get all cheeses and recent purchases.
@@ -13,7 +11,7 @@ class MockDatabase {
     private orders: Order[];
 
     constructor() {
-        this.refreshDatabase();
+        this.loadData();
     }
 
     public get Cheeses(): Cheese[] {
@@ -24,14 +22,22 @@ class MockDatabase {
         return this.orders;
     }
 
-    public refreshDatabase = () => {
-        this.cheeses = [...cheesesData] as [];
-        this.orders = [...purchasesData] as [];
+    public loadData = () => {
+        const cheesesData = fs.readFileSync(
+            path.join(__dirname, "../resources/cheeses.json"),
+            "utf-8"
+        );
+        const purchasesData = fs.readFileSync(
+            path.join(__dirname, "../resources/purchases.json"),
+            "utf-8"
+        );
+        this.cheeses = [...JSON.parse(cheesesData)] as [];
+        this.orders = [...JSON.parse(purchasesData)] as [];
     };
 
     public saveData = () => {
         fs.writeFileSync(
-            "./src/server/data/purchases.json",
+            path.join(__dirname, "../resources/purchases.json"),
             JSON.stringify(this.orders)
         );
     };
