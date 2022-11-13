@@ -1,9 +1,13 @@
+#Built from MacOS Env: 
+#docker build --platform linux/amd64 -t cheeseria:latest .
+
 FROM node:18-alpine
-USER node
 ENV PORT=3000
 
 WORKDIR /app
 COPY package.json .
+# Fixes issue: cannot access public/app js file
+RUN npm config set unsafe-perm true 
 RUN npm install --force
 
 COPY /src ./src
@@ -12,8 +16,8 @@ COPY tsconfig.server.json .
 COPY webpack.config.js . 
 COPY /public ./public
 COPY /resources ./resources
-
 RUN npm run build
 
 EXPOSE 3000
+USER node
 CMD [ "node", "dist/server.js" ]
