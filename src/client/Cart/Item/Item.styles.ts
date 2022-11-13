@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+
 export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -8,18 +9,30 @@ export const Wrapper = styled.div`
   border: 1px solid lightblue;
   border-radius: 20px;
   height: 100%;
+  
+  &:hover {
+    background: #d3dfe4;
+  }
 
+  .cheese-name {
+    font-weight: bold;
+  }
   button {
     border-radius: 0 0 20px 20px;
   }
 
+  .cart-button:hover {
+    font-weight: bold;
+  }
+
   img {
     max-height: 250px;
+    width: 100%;
     object-fit: cover;
     border-radius: 20px 20px 0 0;
   }
 
-  div {
+  .item-details {
     font-family: Arial, Helvetica, sans-serif;
     padding: 1rem;
     height: 100%;
@@ -31,14 +44,4 @@ export const ItemInfo = styled.div`
   .item-id {
     color: #808080;
   }
-
-  table, td, tr {
-    border: 1pt solid black;
-    vertical-align: top;
-  }
-  
-  td:first-child {
-    font-weight: bold;
-  }
-
 `;

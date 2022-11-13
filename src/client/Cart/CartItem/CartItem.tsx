@@ -1,3 +1,5 @@
+import React from 'react';
+import { Box } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 // Types
 import { CartItemType } from '../../App';
@@ -12,13 +14,14 @@ type Props = {
 
 const CartItem: React.FC<Props> = ({ item, addToCart, removeFromCart }) => (
   <Wrapper>
-    <div>
+    <Box sx={{flex:1}}>
       <h3>{item.title}</h3>
-      <div className='information'>
+      <Box className='information'>
         <p>Price: ${item.price}</p>
         <p>Total: ${(item.amount * item.price).toFixed(2)}</p>
-      </div>
-      <div className='buttons'>
+      </Box>
+
+      <Box className='buttons'>
         <Button
           size='small'
           disableElevation
@@ -36,8 +39,8 @@ const CartItem: React.FC<Props> = ({ item, addToCart, removeFromCart }) => (
         >
           +
         </Button>
-      </div>
-    </div>
+      </Box>
+    </Box>
     <img src={item.image} alt={item.title} />
   </Wrapper>
 );
