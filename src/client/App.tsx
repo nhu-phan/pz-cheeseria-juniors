@@ -49,7 +49,6 @@ const App = () => {
 
     // Saves to local storage whenever cart items change
     useEffect(() => {
-        console.log("cart items changed");
         localStorage.setItem("cart", JSON.stringify(cartItems));
     }, [cartItems]);
 
