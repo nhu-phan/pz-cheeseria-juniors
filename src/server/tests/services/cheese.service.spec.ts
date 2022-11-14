@@ -12,7 +12,7 @@ import { Cheese } from "../../data/models/cheese.model";
 
 // Global variables to be used in some tests
 
-// a cheese
+// test cheese
 const cheese: Cheese = {
     id: 1,
     title: "Cheese Name",
@@ -21,32 +21,23 @@ const cheese: Cheese = {
     category: "yummy",
     image: "image link",
 };
-// orders
+// test orders
 const order1 = {
     id: 1,
     totalPrice: 120,
-    orderItems: [],
-    date: new Date("July 12, 2022"),
+    orderItems: [] as any,
+    date: new Date("July 12, 2022").toUTCString(),
 };
 const order2 = {
     id: 2,
     totalPrice: 120,
-    orderItems: [],
-    date: new Date("August 29, 2022"),
+    orderItems: [] as any,
+    date: new Date("August 29, 2022").toUTCString(),
 };
 
 // Mock get functions
-let mockGetDataCheese;
-let mockGetDataOrder;
-// let mockPushDataOrder;
-
-beforeEach(() => {
-    // Mock cheeses data
-    mockGetDataCheese = jest.spyOn(mockDatabase, "Cheeses", "get");
-    //Mock orders (purchase history) data
-    mockGetDataOrder = jest.spyOn(mockDatabase, "Orders", "get");
-
-});
+const mockGetDataCheese = jest.spyOn(mockDatabase, "Cheeses", "get");
+const mockGetDataOrder = jest.spyOn(mockDatabase, "Orders", "get");
 
 afterEach(() => {
     jest.clearAllMocks();
@@ -163,14 +154,14 @@ describe("isValidOrder", () => {
     });
 
     test("order item does not have quantity", () => {
-        const orderItems: OrderItem[] = [{ cheese: cheese }];
+        const orderItems: OrderItem[] = [{ cheese } as any];
         const result = isValidOrder(orderItems);
         expect(result).toBe(false);
     });
 
     test("order item does not have sufficient cheese info", () => {
         const orderItems: OrderItem[] = [
-            { cheese: { name: "cheese" }, quantity: 3 },
+            { cheese: { name: "cheese" } as any, quantity: 3 },
         ];
         const result = isValidOrder(orderItems);
         expect(result).toBe(false);

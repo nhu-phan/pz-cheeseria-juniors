@@ -8,12 +8,10 @@ import { handleCheesePurchase } from "../../services/purchase.service";
 /* Unit tests for client/services/purchase.service.ts */
 
 // Define global mocks and flow before/afer each unit tests
-let fetchMock;
-let alertMock;
+const fetchMock = jest.fn();
+const alertMock = jest.fn();
 
 beforeEach(() => {
-    fetchMock = jest.fn();
-    alertMock = jest.fn();
     global.fetch = fetchMock;
     global.alert = alertMock;
 });
@@ -23,7 +21,7 @@ afterEach(() => {
     (global.alert as any).mockClear();
 });
 
-// Tests getCheeses function 
+// Tests getCheeses function
 describe("getCheeses", () => {
     it("should return correct cheeses", async () => {
         // Mockup data for cheeses
@@ -47,7 +45,7 @@ describe("getCheeses", () => {
         fetchMock.mockResolvedValue({
             status: 200,
             json() {
-                return [cheese1, cheese2]; 
+                return [cheese1, cheese2];
             },
         });
         // Call function
