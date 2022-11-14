@@ -19,5 +19,5 @@ COPY /resources ./resources
 RUN npm run build
 
 EXPOSE 3000
-USER node
+USER root
 CMD [ "node", "dist/server.js" ]
