@@ -99,6 +99,7 @@ const App = () => {
                         direction="row"
                         justifyContent="space-between"
                         alignItems="center"
+                        className="top-bar"
                     >
                         <StyledButton
                             onClick={() => setRecentPurchaseOpen(true)}
@@ -119,7 +120,11 @@ const App = () => {
                             <PurchaseHistory />
                         </Drawer>
 
-                        <HeaderTypography variant="h3" noWrap>
+                        <HeaderTypography
+                            variant="h3"
+                            noWrap
+                            className="welcome-msg"
+                        >
                             Welcome to Patient Zero's Cheeseria
                         </HeaderTypography>
 

@@ -14,7 +14,7 @@ type Props = {
 
 const CartItem: React.FC<Props> = ({ item, addToCart, removeFromCart }) => (
   <Wrapper>
-    <Box sx={{flex:1}}>
+    <Box sx={{flex:1}} data-cy={`cart-item-${item.id}`}>
       <Typography variant="h6" className="cart-cheese">{item.title}</Typography>
       <Box className='information'>
         <Typography variant="subtitle1" data-cy={`cart-item-${item.id}-unitPrice`}>Price: ${item.price}</Typography>
@@ -31,7 +31,7 @@ const CartItem: React.FC<Props> = ({ item, addToCart, removeFromCart }) => (
         >
           -
         </Button>
-        <p>{item.amount}</p>
+        <p data-cy={`cart-item-${item.id}-quantity`}>{item.amount}</p>
         <Button
           size='small'
           disableElevation

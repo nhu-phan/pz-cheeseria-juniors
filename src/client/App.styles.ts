@@ -4,11 +4,10 @@ import { AppBar, Typography, withStyles } from '@material-ui/core';
 
 export const Wrapper = styled.div`
   margin: 40px;
+  .welcome-msg {
+    font-size: 3vw;
+  }
 `;
-
-// export const StyledButton = styled(IconButton)`
-
-// `;
 
 export const StyledButton = withStyles({
   label: {

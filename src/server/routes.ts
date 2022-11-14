@@ -10,6 +10,7 @@ const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
+// Endpoints
 router.get("/api/cheeses", handleGetAllCheeses);
 router.post("/api/cheeses/purchase", bodyParser.json(), handlePurchaseCheese);
 router.get("/api/cheeses/purchase", handleGetRecentPurchases);

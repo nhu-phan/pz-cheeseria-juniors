@@ -50,5 +50,5 @@ export const handleCheesePurchase = async (
  * Get all recent purchases from API
  */
 export const getRecentPurchases = async () => {
-    return fetch(`api/cheeses/purchase`).then(res => res.json());
+    return fetch(`api/cheeses/purchase`).then((res) => res.json());
 };

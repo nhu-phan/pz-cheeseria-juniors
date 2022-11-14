@@ -67,7 +67,7 @@ const Item: React.FC<Props> = ({ item, handleAddToCart }) => {
                                 handleAddToCart(item);
                                 setShowDialogue(false);
                             }}
-                            data-cy={`add-to-cart-${item.id}`}
+                            data-cy={`add-to-cart-${item.id}-dialog`}
                         >
                             Add to cart
                         </Button>
