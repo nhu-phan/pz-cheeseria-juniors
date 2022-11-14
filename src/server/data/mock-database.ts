@@ -9,8 +9,12 @@ import * as path from "path";
 class MockDatabase {
     private cheeses: Cheese[];
     private orders: Order[];
+    private resourcePath = "../resources";
 
     constructor() {
+        if (process.env.NODE_ENV === "test") {
+            this.resourcePath = "../../../resources";
+        }
         this.loadData();
     }
 
@@ -24,11 +28,11 @@ class MockDatabase {
 
     public loadData = () => {
         const cheesesData = fs.readFileSync(
-            path.join(__dirname, "../resources/cheeses.json"),
+            path.join(__dirname, `${this.resourcePath}/cheeses.json`),
             "utf-8"
         );
         const purchasesData = fs.readFileSync(
-            path.join(__dirname, "../resources/purchases.json"),
+            path.join(__dirname, `${this.resourcePath}/purchases.json`),
             "utf-8"
         );
         this.cheeses = [...JSON.parse(cheesesData)] as [];
@@ -37,7 +41,7 @@ class MockDatabase {
 
     public saveData = () => {
         fs.writeFileSync(
-            path.join(__dirname, "../resources/purchases.json"),
+            path.join(__dirname, `${this.resourcePath}/purchases.json`),
             JSON.stringify(this.orders)
         );
     };
