@@ -23,5 +23,5 @@ jobs:
           gcloud auth configure-docker
       - name: Build and push image
         run: |
-            gcloud builds submit --tag gcr.io/${{ GCP_PROJECT_ID }}/cheeseria
+            gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/cheeseria
       
