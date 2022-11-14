@@ -3,14 +3,17 @@ import { Cheese } from "./../data/models/cheese.model";
 import mockDatabase from "../data/mock-database";
 import * as _ from "lodash";
 
+/* Get all the cheeses from json file*/
 export const getAllCheeses = (): Cheese[] => {
     return mockDatabase.Cheeses;
 };
 
+/* Get cheese with the given id */
 export const getCheeseById = (cheeseId: number): Cheese | undefined => {
     return mockDatabase.Cheeses.find((i) => i.id === cheeseId);
 };
 
+/* For each item in the order, calculate totalPrice */
 export const getItemTotalPrices = (orderItems: OrderItem[]): OrderItem[] => {
     orderItems = orderItems.map((item) => {
         const cheese = getCheeseById(item.cheese.id)!;
@@ -22,8 +25,8 @@ export const getItemTotalPrices = (orderItems: OrderItem[]): OrderItem[] => {
     });
     return orderItems;
 };
-// Return order with totalPrice (for entire order), totalPrice (for a cheese type),
-// order date.
+
+// Return order with totalPrice (for entire order), totalPrice (for a cheese type), order date.
 export const getOrderWithTotalPrices = (orderItems: OrderItem[]): Order => {
     orderItems = getItemTotalPrices(orderItems);
     const orderPrice = orderItems.reduce((accumulator, orderItem) => {
@@ -56,11 +59,14 @@ export const isValidOrder = (orderItems: OrderItem[]): boolean => {
     return true;
 };
 
-export const saveOrder = (orderItems: OrderItem[]): [{message: string}?, Order?] => {
+/* If order is valid, save order to mock database and json file */
+export const saveOrder = (
+    orderItems: OrderItem[]
+): [{ message: string }?, Order?] => {
     const order: Order = getOrderWithTotalPrices(orderItems);
     if (!isValidOrder(orderItems)) {
         return [{ message: "Invalid Order" }];
-    } 
+    }
     // Valid order, so add to mock database
     mockDatabase.Orders.push(order);
     mockDatabase.saveData();

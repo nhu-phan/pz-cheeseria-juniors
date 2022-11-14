@@ -7,10 +7,6 @@ export const Wrapper = styled.div`
   border-bottom: 1px solid lightblue;
   padding-bottom: 20px;
 
-  div {
-    flex: 1;
-  }
-
   .information,
   .buttons {
     display: flex;
