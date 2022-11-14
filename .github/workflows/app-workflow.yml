@@ -7,9 +7,12 @@ on:
         branches: ["main"]
 
 jobs:
-  test:
-    steps: 
-      - uses: actions/checkout@v2
+  deploy:
+    name: build and deploy
+    runs-on: ubuntu-latest
+    steps:   
+      - name: Checkout
+        uses: actions/checkout@master
       - name: Setup NodeJs
         uses: actions/setup-node@v3
         with:
@@ -25,13 +28,6 @@ jobs:
         run: npm test
       - name: build
         run: npm run build
-    
-  deploy:
-    name: build and deploy
-    runs-on: ubuntu-latest
-    steps:   
-      - name: Checkout
-        uses: actions/checkout@master
       - name: Setup gcloud
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
@@ -42,7 +38,7 @@ jobs:
         run: |
           gcloud auth configure-docker
       - name: Build and push image
-          run: |
+        run: |
             gcloud config set project ${{ secrets.GCP_PROJECT_ID }} 
             gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT }}/cheeseria
             gcloud config set run/region australia-southeast1
