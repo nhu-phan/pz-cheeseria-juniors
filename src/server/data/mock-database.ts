@@ -12,9 +12,6 @@ class MockDatabase {
     private resourcePath = "../resources";
 
     constructor() {
-        if (process.env.NODE_ENV === "test") {
-            this.resourcePath = "../../../resources";
-        }
         this.loadData();
     }
 
@@ -27,14 +24,8 @@ class MockDatabase {
     }
 
     public loadData = () => {
-        const cheesesData = fs.readFileSync(
-            path.join(__dirname, `${this.resourcePath}/cheeses.json`),
-            "utf-8"
-        );
-        const purchasesData = fs.readFileSync(
-            path.join(__dirname, `${this.resourcePath}/purchases.json`),
-            "utf-8"
-        );
+        const cheesesData = this.loadFileFromResource("cheeses.json", "[]");
+        const purchasesData = this.loadFileFromResource("purchases.json", "[]");
         this.cheeses = [...JSON.parse(cheesesData)] as [];
         this.orders = [...JSON.parse(purchasesData)] as [];
     };
@@ -44,6 +35,17 @@ class MockDatabase {
             path.join(__dirname, `${this.resourcePath}/purchases.json`),
             JSON.stringify(this.orders)
         );
+    };
+
+    private loadFileFromResource = (fileName: string, defaultValue: string) => {
+        const filePath = path.join(
+            __dirname,
+            `${this.resourcePath}/${fileName}`
+        );
+        if (fs.existsSync(filePath)) {
+            return fs.readFileSync(filePath, "utf-8");
+        }
+        return defaultValue;
     };
 }
 

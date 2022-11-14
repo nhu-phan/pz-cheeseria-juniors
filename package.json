@@ -34,8 +34,9 @@
     "watch:server": "nodemon dist/server.js --open",
     "watch:client": "npx webpack serve",
     "start": "npm-run-all build --parallel watch:*",
-    "test:client:unit": "NODE_ENV=test jest  --testPathPattern=src/client/tests",
-    "test:server:unit": "NODE_ENV=test jest  --testPathPattern=src/server/tests"
+    "test:client:unit": "jest  --testPathPattern=src/client/tests",
+    "test:server:unit": "jest  --testPathPattern=src/server/tests",
+    "test:unit:all": "npm run test:client:unit && npm run test:server:unit"
   },
   "eslintConfig": {
     "extends": [
