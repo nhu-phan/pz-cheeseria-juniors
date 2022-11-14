@@ -14,8 +14,10 @@ COPY /src ./src
 COPY tsconfig.client.json .
 COPY tsconfig.server.json .
 COPY webpack.config.js . 
+COPY babel.config.js . 
 COPY /public ./public
 COPY /resources ./resources
+RUN npm run test:client:unit && npm run test:server:unit
 RUN npm run build
 
 EXPOSE 3000
